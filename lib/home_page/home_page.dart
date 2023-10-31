@@ -1,4 +1,7 @@
+import 'package:ecshop_techpit/home_page/home_header.dart';
+import 'package:ecshop_techpit/home_page/item_categories.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -17,10 +20,11 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: const Center(
-        child: Text(
-          'Home Page',
-        ),
+      body: const Column(
+        children: [
+          HomeHeader(),
+          ItemCategories(),
+        ],
       ),
     );
   }
