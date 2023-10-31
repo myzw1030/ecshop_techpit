@@ -1,5 +1,6 @@
 import 'package:ecshop_techpit/home_page/home_header.dart';
 import 'package:ecshop_techpit/home_page/item_categories.dart';
+import 'package:ecshop_techpit/home_page/item_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -20,10 +21,11 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: const Column(
-        children: [
+      body: const CustomScrollView(
+        slivers: [
           HomeHeader(),
           ItemCategories(),
+          ItemGrid(),
         ],
       ),
     );
