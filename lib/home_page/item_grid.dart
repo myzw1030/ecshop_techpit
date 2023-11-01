@@ -27,9 +27,8 @@ class ItemGrid extends StatelessWidget {
 
 class _ItemCard extends StatelessWidget {
   const _ItemCard({
-    Key? key,
     required this.id,
-  }) : super(key: key);
+  });
 
   final int id;
 
@@ -37,35 +36,29 @@ class _ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
+        SizedBox(
           height: MediaQuery.of(context).size.width / 2 * 0.8,
-          decoration: BoxDecoration(
-            image: const DecorationImage(
-              image: NetworkImage(
-                  'https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1625&q=80'),
+          child: Card(
+            clipBehavior: Clip.hardEdge,
+            elevation: 4,
+            child: Image.network(
+              'https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1625&q=80',
               fit: BoxFit.cover,
             ),
-            borderRadius: BorderRadius.circular(5),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 4,
-                spreadRadius: 0.2,
-                offset: Offset(1, 1),
-              ),
-            ],
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 2),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 2),
           child: Text(
             'Super Shoes 1',
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 2),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 2),
           child: Text(
             '12800yen',
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
       ],
