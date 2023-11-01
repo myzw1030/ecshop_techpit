@@ -12,6 +12,11 @@ class App extends StatelessWidget {
         primarySwatch: Colors.blue,
         textTheme: GoogleFonts.montserratTextTheme(),
       ),
+      darkTheme: ThemeData.dark().copyWith(
+        textTheme: GoogleFonts.montserratTextTheme(
+          ThemeData.dark().textTheme,
+        ),
+      ),
       home: const HomePage(),
     );
   }
