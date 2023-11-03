@@ -7,6 +7,7 @@ part of 'item.dart';
 // **************************************************************************
 
 _$ItemImpl _$$ItemImplFromJson(Map<String, dynamic> json) => _$ItemImpl(
+      id: json['id'] as String,
       name: json['name'] as String,
       imageUrl: json['imageUrl'] as String,
       description: json['description'] as String,
@@ -18,6 +19,7 @@ _$ItemImpl _$$ItemImplFromJson(Map<String, dynamic> json) => _$ItemImpl(
 
 Map<String, dynamic> _$$ItemImplToJson(_$ItemImpl instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'imageUrl': instance.imageUrl,
       'description': instance.description,

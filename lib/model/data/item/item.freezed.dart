@@ -20,6 +20,7 @@ Item _$ItemFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Item {
+  String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -38,7 +39,8 @@ abstract class $ItemCopyWith<$Res> {
       _$ItemCopyWithImpl<$Res, Item>;
   @useResult
   $Res call(
-      {String name,
+      {String id,
+      String name,
       String imageUrl,
       String description,
       String category,
@@ -59,6 +61,7 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
     Object? imageUrl = null,
     Object? description = null,
@@ -67,6 +70,10 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
     Object? price = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -103,7 +110,8 @@ abstract class _$$ItemImplCopyWith<$Res> implements $ItemCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String name,
+      {String id,
+      String name,
       String imageUrl,
       String description,
       String category,
@@ -121,6 +129,7 @@ class __$$ItemImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
     Object? imageUrl = null,
     Object? description = null,
@@ -129,6 +138,10 @@ class __$$ItemImplCopyWithImpl<$Res>
     Object? price = null,
   }) {
     return _then(_$ItemImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -161,7 +174,8 @@ class __$$ItemImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ItemImpl with DiagnosticableTreeMixin implements _Item {
   _$ItemImpl(
-      {required this.name,
+      {required this.id,
+      required this.name,
       required this.imageUrl,
       required this.description,
       required this.category,
@@ -172,6 +186,8 @@ class _$ItemImpl with DiagnosticableTreeMixin implements _Item {
   factory _$ItemImpl.fromJson(Map<String, dynamic> json) =>
       _$$ItemImplFromJson(json);
 
+  @override
+  final String id;
   @override
   final String name;
   @override
@@ -193,7 +209,7 @@ class _$ItemImpl with DiagnosticableTreeMixin implements _Item {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Item(name: $name, imageUrl: $imageUrl, description: $description, category: $category, options: $options, price: $price)';
+    return 'Item(id: $id, name: $name, imageUrl: $imageUrl, description: $description, category: $category, options: $options, price: $price)';
   }
 
   @override
@@ -201,6 +217,7 @@ class _$ItemImpl with DiagnosticableTreeMixin implements _Item {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Item'))
+      ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('imageUrl', imageUrl))
       ..add(DiagnosticsProperty('description', description))
@@ -214,6 +231,7 @@ class _$ItemImpl with DiagnosticableTreeMixin implements _Item {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ItemImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
@@ -227,7 +245,7 @@ class _$ItemImpl with DiagnosticableTreeMixin implements _Item {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, imageUrl, description,
+  int get hashCode => Object.hash(runtimeType, id, name, imageUrl, description,
       category, const DeepCollectionEquality().hash(_options), price);
 
   @JsonKey(ignore: true)
@@ -246,7 +264,8 @@ class _$ItemImpl with DiagnosticableTreeMixin implements _Item {
 
 abstract class _Item implements Item {
   factory _Item(
-      {required final String name,
+      {required final String id,
+      required final String name,
       required final String imageUrl,
       required final String description,
       required final String category,
@@ -255,6 +274,8 @@ abstract class _Item implements Item {
 
   factory _Item.fromJson(Map<String, dynamic> json) = _$ItemImpl.fromJson;
 
+  @override
+  String get id;
   @override
   String get name;
   @override
