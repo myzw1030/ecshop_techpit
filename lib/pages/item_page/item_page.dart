@@ -7,6 +7,10 @@ class ItemPage extends StatelessWidget {
 
   final String id;
 
+  static const basePath = 'details';
+  static const param = 'itemId';
+  static const path = '$basePath/:$param';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

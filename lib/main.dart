@@ -9,7 +9,7 @@ void main() {
     DeviceOrientation.portraitUp,
   ]);
   runApp(
-    const ProviderScope(
+    ProviderScope(
       child: App(),
     ),
   );

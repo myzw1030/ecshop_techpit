@@ -1,5 +1,6 @@
 import 'package:ecshop_techpit/model/shop_item.dart';
 import 'package:ecshop_techpit/pages/item_page/item_page.dart';
+import 'package:ecshop_techpit/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -20,9 +21,9 @@ class ItemGrid extends ConsumerWidget {
             (BuildContext context, int index) {
               return InkWell(
                 onTap: () => {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ItemPage(id: itemIds[index]),
-                  ))
+                  ref.read(routerProvider).go(
+                        '/${ItemPage.basePath}/${itemIds[index]}',
+                      ),
                 },
                 child: _ItemCard(itemIds[index]),
               );

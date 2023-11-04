@@ -1,14 +1,19 @@
-import 'package:ecshop_techpit/pages/home_page/home_page.dart';
+import 'package:ecshop_techpit/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class App extends StatelessWidget {
+class App extends ConsumerWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(routerProvider);
+    return MaterialApp.router(
+      routeInformationProvider: router.routeInformationProvider,
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
       theme: ThemeData.light().copyWith(
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.transparent,
@@ -29,7 +34,6 @@ class App extends StatelessWidget {
         ),
         highlightColor: Colors.lightBlue[700],
       ),
-      home: const HomePage(),
     );
   }
 }
