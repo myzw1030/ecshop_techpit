@@ -3,7 +3,9 @@ import 'package:ecshop_techpit/pages/item_page/item_details.dart';
 import 'package:flutter/material.dart';
 
 class ItemPage extends StatelessWidget {
-  const ItemPage({super.key});
+  const ItemPage({required this.id, super.key});
+
+  final String id;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +22,8 @@ class ItemPage extends StatelessWidget {
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          const ItemCover(),
-          ItemDetails(),
+          ItemCover(id: id),
+          ItemDetails(id: id),
         ],
       ),
     );

@@ -21,7 +21,7 @@ class ItemGrid extends ConsumerWidget {
               return InkWell(
                 onTap: () => {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ItemPage(),
+                    builder: (context) => ItemPage(id: itemIds[index]),
                   ))
                 },
                 child: _ItemCard(itemIds[index]),

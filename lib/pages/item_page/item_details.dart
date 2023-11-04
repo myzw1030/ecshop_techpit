@@ -1,7 +1,11 @@
+import 'package:ecshop_techpit/model/cart.dart';
+import 'package:ecshop_techpit/model/shop_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ItemDetails extends StatelessWidget {
-  ItemDetails({super.key});
+class ItemDetails extends ConsumerWidget {
+  ItemDetails({required this.id, super.key});
+  final String id;
 
   List<String> optionsList = [
     '24',
@@ -12,40 +16,45 @@ class ItemDetails extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * .55,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        color: Theme.of(context).canvasColor,
-        borderRadius: const BorderRadius.vertical(
-          top: Radius.elliptical(90, 5),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(.3),
-            blurRadius: 4,
-            offset: const Offset(0, -1),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final item = ref.watch(shopItemForIdProvider(id));
+    return item.when(
+      loading: () => const Text('Loading'),
+      error: (error, stack) => const Text('error'),
+      data: (data) => Container(
+        height: MediaQuery.of(context).size.height * .55,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          color: Theme.of(context).canvasColor,
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.elliptical(90, 5),
           ),
-        ],
-      ),
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 32, left: 8, right: 8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const _ItemName(name: 'Item Name'),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: _ItemDescription(description: 'Item Description'),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 16),
-                child: _ItemPrice(price: '12,800yen'),
-              ),
-              _AddToCart(options: optionsList),
-            ],
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(.3),
+              blurRadius: 4,
+              offset: const Offset(0, -1),
+            ),
+          ],
+        ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 32, left: 8, right: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _ItemName(name: data.name),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: _ItemDescription(description: data.description),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: _ItemPrice(price: '${data.price}yen'),
+                ),
+                _AddToCart(id: id, options: data.options),
+              ],
+            ),
           ),
         ),
       ),
@@ -103,15 +112,16 @@ class _ItemPrice extends StatelessWidget {
   }
 }
 
-class _AddToCart extends StatefulWidget {
+class _AddToCart extends ConsumerStatefulWidget {
   final List<String> options;
-  const _AddToCart({required this.options});
+  final String id;
+  const _AddToCart({required this.id, required this.options});
 
   @override
-  State<_AddToCart> createState() => __AddToCartState();
+  _AddToCartState createState() => _AddToCartState();
 }
 
-class __AddToCartState extends State<_AddToCart> {
+class _AddToCartState extends ConsumerState<_AddToCart> {
   String selectedOption = '';
 
   @override
@@ -153,7 +163,13 @@ class __AddToCartState extends State<_AddToCart> {
         ),
         Center(
           child: ElevatedButton(
-            onPressed: (selectedOption.isEmpty) ? null : () => {},
+            onPressed: (selectedOption.isEmpty)
+                ? null
+                : () => {
+                      ref
+                          .read(cartProvider.notifier)
+                          .addItem(widget.id, selectedOption)
+                    },
             child: const Text('Add to Cart'),
           ),
         )

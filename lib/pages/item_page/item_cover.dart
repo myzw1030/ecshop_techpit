@@ -1,17 +1,31 @@
+import 'package:ecshop_techpit/model/shop_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ItemCover extends StatelessWidget {
-  const ItemCover({super.key});
+class ItemCover extends ConsumerWidget {
+  const ItemCover({required this.id, super.key});
+
+  final String id;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final image = ref.watch(shopItemForIdProvider(id).select(
+      (value) => value.whenData((data) => data.imageUrl),
+    ));
     return Column(
       children: [
         Expanded(
           flex: 1,
-          child: Image.network(
-            'https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1625&q=80',
-            fit: BoxFit.cover,
+          child: image.when(
+            error: (error, trace) => const Text('error'),
+            loading: () => const Text('loading'),
+            data: (data) => SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Image.network(
+                data,
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
         ),
         const Spacer(flex: 1),
