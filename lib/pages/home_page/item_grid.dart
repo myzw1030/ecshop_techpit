@@ -1,4 +1,5 @@
 import 'package:ecshop_techpit/model/shop_item.dart';
+import 'package:ecshop_techpit/pages/item_page/item_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,7 +18,14 @@ class ItemGrid extends ConsumerWidget {
         sliver: SliverGrid(
           delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) {
-              return _ItemCard(itemIds[index]);
+              return InkWell(
+                onTap: () => {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const ItemPage(),
+                  ))
+                },
+                child: _ItemCard(itemIds[index]),
+              );
             },
             childCount: itemIds.length,
           ),
